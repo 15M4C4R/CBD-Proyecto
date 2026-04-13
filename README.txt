@@ -1,0 +1,1 @@
+docker-compose up --build para correr el proyecto.
