@@ -17,3 +17,5 @@ services:
     environment:
       - ARANGO_URL=http://db:8529
       - ARANGO_PWD=password_seguro
+      - PYTHONPATH=/app
+    command: bash -c "PYTHONPATH=/app python -u data/setup_data.py && streamlit run app/main.py --server.port=8501 --server.address=0.0.0.0"

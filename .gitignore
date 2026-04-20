@@ -1,1 +1,16 @@
-./.env
+# Variables de entorno (Seguridad)
+.env
+
+# Archivos basura de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+
+# Archivos temporales de Streamlit/Docker
+.streamlit/
+.dockerignore
