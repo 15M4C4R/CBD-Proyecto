@@ -199,6 +199,3 @@ if db:
 else:
     st.error("Error de conexión con la base de datos.")
     st.stop()
-else:
-    st.error("No se pudo iniciar la aplicación por falta de conexión a la base de datos.")
-    st.stop()

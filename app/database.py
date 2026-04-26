@@ -60,6 +60,10 @@ class GestorLogisticaDB:
         for r in rutas:
             self.rutas.crear(r[0], r[1], r[2])
 
-        stocks = [('madrid','p1',50), ('barcelona','p1',20), ('sevilla','p2',100), ('madrid','p3',15)]
+        stocks = [
+            ('madrid','p1',50), ('barcelona','p1',20), 
+            ('sevilla','p2',100), ('madrid','p3',15),
+            ('valencia','p2',40), ('bilbao','p3',30)
+        ]
         for s in stocks:
             self.stock.modificar(s[0], s[1], s[2])
