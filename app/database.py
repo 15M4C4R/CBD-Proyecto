@@ -16,25 +16,19 @@ class GestorLogisticaDB:
         self.sys_db = self.client.db('_system', username=self.username, password=self.password)
         
         self.db = None
-        
-        # Inicializamos los submódulos CRUD vacíos. Se asignarán tras conectar a la BD.
         self.almacenes = None
         self.productos = None
         self.rutas = None
         self.stock = None
 
     def conectar(self):
-        """Abre la conexión a la base de datos específica y enlaza las clases CRUD."""
         self.db = self.client.db(self.db_name, username=self.username, password=self.password)
-        
-        # Inyección de dependencias (Repository Pattern)
         self.almacenes = CRUDAlmacenes(self.db)
         self.productos = CRUDProductos(self.db)
         self.rutas = CRUDRutas(self.db)
         self.stock = CRUDStock(self.db)
 
     def inicializar_base_datos(self):
-        print(f"Inicializando base de datos '{self.db_name}'...")
         if self.sys_db.has_database(self.db_name):
             self.sys_db.delete_database(self.db_name)
         self.sys_db.create_database(self.db_name)
@@ -49,7 +43,6 @@ class GestorLogisticaDB:
         grafo = self.db.create_graph('RedLogistica')
         grafo.create_edge_definition(edge_collection='Rutas', from_vertex_collections=['Almacenes'], to_vertex_collections=['Almacenes'])
         grafo.create_edge_definition(edge_collection='Stock_en', from_vertex_collections=['Productos'], to_vertex_collections=['Almacenes'])
-        print("Esqueleto creado.")
 
     def cargar_datos_prueba(self):
         if not self.db:
@@ -70,5 +63,3 @@ class GestorLogisticaDB:
         stocks = [('madrid','p1',50), ('barcelona','p1',20), ('sevilla','p2',100), ('madrid','p3',15)]
         for s in stocks:
             self.stock.modificar(s[0], s[1], s[2])
-            
-        print("Datos de prueba cargados.")

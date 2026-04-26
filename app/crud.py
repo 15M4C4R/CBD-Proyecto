@@ -15,7 +15,6 @@ class CRUDAlmacenes:
         return self._ejecutar(query, {'k': key.lower(), 'cap': nueva_capacidad})
 
     def eliminar(self, key):
-        # En grafos, al borrar un nodo hay que borrar las aristas conectadas (Cascada manual en AQL)
         key_id = f"Almacenes/{key.lower()}"
         query = """
         LET aristas_rutas = (FOR r IN Rutas FILTER r._from == @id OR r._to == @id REMOVE r IN Rutas)
@@ -108,7 +107,6 @@ class CRUDStock:
         self.db = db
 
     def modificar(self, almacen, producto, variacion):
-        # Funciona como UPSERT: si existe lo actualiza, si no existe lo inserta.
         query = """
         UPSERT { _from: @p, _to: @a }
         INSERT { _from: @p, _to: @a, cantidad: @var > 0 ? @var : 0 }
